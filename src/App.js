@@ -6,6 +6,7 @@ import theme from "./theme/theme";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AppNavBar from "./componentes/layout/AppNavBar";
 import Grid from '@material-ui/core/Grid'
+import RegistrarUsuario from './componentes/seguridad/RegistrarUsuario';
 class App extends Component {
   render() {
     return (
@@ -16,6 +17,8 @@ class App extends Component {
           <Grid container>
             <Switch>
               <Route path="/" exact component={ListaInmuebles}></Route>
+              <Route path="/auth/registarUsuario" exact component={RegistrarUsuario}></Route>
+
             </Switch>
           </Grid>
         </MuiThemeProvider>
