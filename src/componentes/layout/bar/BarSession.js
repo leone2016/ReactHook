@@ -5,6 +5,7 @@ import {withStyles} from "@material-ui/core/styles";
 const styles = theme => ({
     sectionDesktop: {
         display: "none",
+        // theme.breakpoints.up("md") tamaño mediano
         [theme.breakpoints.up("md")]: {
             display: "flex"
         }
@@ -15,6 +16,7 @@ const styles = theme => ({
             display: "none"
         }
     },
+    // global
     grow: {
         flexGrow: 1
     }
@@ -35,10 +37,12 @@ class BarSession extends Component {
                     </Typography>
                     <div className={classes.grow}></div>
                     <div className={classes.sectionDesktop}>
+                    {/* inherit: heredado toma los colores del template */}
                         <Button color="inherit">Login</Button>
                     </div>
                     <div className={classes.sectionMobile}>
                        <IconButton color={'inherit'}>
+                       {/* more_vert: es el nombre del icono, pero hay que importar en el index.html */}
                            <i className="material-icons">more_vert</i>
                        </IconButton>
                     </div>

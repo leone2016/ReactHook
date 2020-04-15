@@ -4,13 +4,13 @@ import LockOutLineIcon from '@material-ui/icons/LockOutlined'
 const style = {
     paper: {
         marginTop: 8,
-        display: "flex", // de que forma se ordenan los elementos en el DIV
+        display: "flex", // la forma que se ordenan los elementos en el DIV: flex uno tras otro
         flexDirection: "column",
         alignItems: "center"
     },
     avatar: {
         margin: 8,
-        backgroundColor: "@e53935"
+        backgroundColor: "#e53935"
     }, 
     form: {
         width: "100%",
@@ -58,6 +58,7 @@ class RegistrarUsuario extends Component {
                     {/* cuando el componente se vea en un desktop ocupe la mitad del espacio, pero en un movil ocupe todo el espacio
                     */}
                     <form style={style.form}>
+                        {/* grid divide a la ventana en 12 segmentos  */}
                         <Grid container spacing={2} >
                               {/* desktop ocupa 6 espacios*/}
                               {/* mobile ocupa 12 espacios*/}
@@ -68,16 +69,16 @@ class RegistrarUsuario extends Component {
                                 <TextField name="apellido" onChange={this.onChange} value={this.state.usuario.apellido} fullWidth label="Ingrese sus apellidos"></TextField>
                             </Grid>
                             <Grid item md={6} xs={12}>
-                                <TextField name="email" onChange={this.onChange} value={this.state.usuario.email}  type="email" fullWidth label="Ingrese su email"></TextField>
+                                <TextField name="email" onChange={this.onChange} value={this.state.usuario.email}  fullWidth  type="email"  label="Ingrese su email"></TextField>
                             </Grid>
                             <Grid item md={6} xs={12}>
-                                <TextField name="password"  onChange={this.onChange} value={this.state.usuario.password} type="password" fullWidth label="Ingrese su contraseña"></TextField>
+                                <TextField name="password"  onChange={this.onChange} value={this.state.usuario.password}  fullWidth type="password" label="Ingrese su contraseña"></TextField>
                             </Grid>
                         </Grid>
                         <Grid container justify="center" >
                         <Grid item md={6} xs={12}>
                             {/*contained: significa que va ser de un color de fondo definido */}
-                            <Button type="submit" onClick={this.registarUsuario} variant="contained " fullWidth size="large" color="primary" style={style.submit}>Registar</Button>
+                            <Button type="submit" onClick={this.registarUsuario} variant="contained" fullWidth size="large" color="primary" style={style.submit}>Registar</Button>
                         </Grid>
                         </Grid>
                     </form>

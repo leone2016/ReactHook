@@ -13,12 +13,11 @@ class App extends Component {
       <Router>
         <MuiThemeProvider theme={theme}>
           <AppNavBar />
-
+          {/* segmento dinamico */}
           <Grid container>
             <Switch>
               <Route path="/" exact component={ListaInmuebles}></Route>
-              <Route path="/auth/registarUsuario" exact component={RegistrarUsuario}></Route>
-
+              <Route path="/auth/register" exact component={RegistrarUsuario}></Route>
             </Switch>
           </Grid>
         </MuiThemeProvider>
