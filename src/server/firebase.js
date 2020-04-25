@@ -1,5 +1,6 @@
 import app from 'firebase/app';
-
+import 'firebase/firestore';
+import 'firebase/auth'
 const firebaseConfig = {
     apiKey: "AIzaSyA1UKZC0V5KU92YId2Wfc9nI0GUu70xyCA",
     authDomain: "inmobiliariapp-593.firebaseapp.com",
@@ -14,6 +15,8 @@ export default class FirebaseServer{
     constructor(){
         app.initializeApp(firebaseConfig);
         this.db = app.firestore();
+        this.auth = app.auth(); // this.auth puede tener cualquier nombre no es obligatorio este 
+      
     }
 }
 
