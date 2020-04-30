@@ -33,7 +33,7 @@ class BarSession extends Component {
                     </IconButton>
 
                     <Typography variant="h6">
-                        Vaxi Homes
+                        Leonardo Medina
                     </Typography>
                     <div className={classes.grow}></div>
                     <div className={classes.sectionDesktop}>

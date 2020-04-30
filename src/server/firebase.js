@@ -11,12 +11,18 @@ const firebaseConfig = {
     appId: "1:1040240383291:web:8ed532473bee3a8778931e"
   };
 
-export default class FirebaseServer{
+class FirebaseServer{
     constructor(){
         app.initializeApp(firebaseConfig);
         this.db = app.firestore();
         this.auth = app.auth(); // this.auth puede tener cualquier nombre no es obligatorio este 
       
     }
+    estaIniciado() {
+        return new Promise(resolve => {
+            this.auth.onAuthStateChanged(resolve)
+        })
+    } 
 }
 
+export default  FirebaseServer;

@@ -33,6 +33,7 @@ import React, { Component } from 'react';
          * ```
  * @param {*} Component 
  */
+export default FirebaseContext;
 
 export const consumerFirebase = Component => props => (
     <FirebaseContext.Consumer>
@@ -40,4 +41,3 @@ export const consumerFirebase = Component => props => (
     </FirebaseContext.Consumer>
 )
 
-export default FirebaseContext;
