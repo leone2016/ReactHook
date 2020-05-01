@@ -36,7 +36,7 @@ Los Hooks se implementan desde la versión 16.8.0, esto no afecta a las versione
 
 Un Hook es la representación de un componente React mediante una función JavaScript plana sin estado.`
 
-````Js`
+````Js
 
 // forma clasica 
 
@@ -57,5 +57,8 @@ function App(props){
 
 ````
 
-en este curso se va manejar los hooks con el realContext para manejar la sesión del usuario despues de hacer login.
+en este curso se va usar los hooks con el realContext para manejar la sesión del usuario despues de hacer login.
 
+## Estructura del proyecto 
+
+![Estructura del proyecto](https://raw.githubusercontent.com/leone2016/ReactHook/master/Screenshot_1.png)
