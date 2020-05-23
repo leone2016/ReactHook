@@ -3,6 +3,9 @@ import { Container, Avatar, Typography, TextField, Grid, Button } from '@materia
 import LockOutLineIcon from '@material-ui/icons/LockOutlined'
 import { compose } from 'recompose';
 import { consumerFirebase } from '../../server';
+import {crearUsuario} from '../../sesion/actions/sessionAction';
+import {openMensajePantalla} from '../../sesion/actions/snackbarAction'
+import {StateContext} from '../../sesion/store';
 
 const style = {
     paper: {
@@ -31,7 +34,7 @@ const usuarioInicial = {
     password: ''
 }
 class RegistrarUsuario extends Component {
-
+    static contextType = StateContext;
     state = {
         firebase: null,
         usuario: usuarioInicial
@@ -73,39 +76,24 @@ class RegistrarUsuario extends Component {
      * primero se authentica firebase.auth y luego 
      * registra pero no guarda la contraseña, guarda un Id firebase.db
      */
-    registarUsuario = e => {
-        //evita hacer un refresh en la pagina 
+    registrarUsuario = async e => {
         e.preventDefault();
-        console.log('imprimir objeto usuario del state', this.state.usuario);
-        const { usuario, firebase } = this.state
+        const [{sesion}, dispatch] = this.context;
+        const {firebase, usuario} = this.state;
 
-        firebase.auth
-            .createUserWithEmailAndPassword(usuario.email, usuario.password)
-            .then(auth => {
-                const usuarioDb ={
-                    id: auth.user.uid,
-                    email: usuario.email,
-                    nombre: usuario.nombre,
-                    apellido: usuario.apellido
-                }
-                // guarda en firebase
-                firebase.db
-                    .collection("Users")
-                    .add(usuarioDb)
-                    .then(usuarioAfter => {
-                        console.log('Esta inserción fue un exito', usuarioAfter);
-                        this.props.history.push("/"); // similar a routerlink
-                    })
-                    .catch(err => {
-                        console.error(err)
-                    })
-            })
-            .catch(error => {
-                console.log("error", error);
-                // resolve({ status: false, mensaje: error });
-              });
-
+        let callback = await crearUsuario(dispatch, firebase, usuario);
+        if(callback.status){
+            this.props.history.push("/")
+        }else{
+           openMensajePantalla(dispatch,{
+               open : true,
+               mensaje : callback.mensaje.message
+           }) 
+        }
+        
     }
+
+
     render() {
         return (
             <Container maxWidth="md">
@@ -138,7 +126,7 @@ class RegistrarUsuario extends Component {
                         <Grid container justify="center" >
                             <Grid item md={6} xs={12}>
                                 {/*contained: significa que va ser de un color de fondo definido */}
-                                <Button type="submit" onClick={this.registarUsuario} variant="contained" fullWidth size="large" color="primary" style={style.submit}>Registar</Button>
+                                <Button type="submit" onClick={this.registrarUsuario} variant="contained" fullWidth size="large" color="primary" style={style.submit}>Registar</Button>
                             </Grid>
                         </Grid>
                     </form>

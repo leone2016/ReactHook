@@ -3,6 +3,10 @@ import { Container, Avatar, Typography, TextField, Button, Grid, Link } from '@m
 import LockOutlineIcon from "@material-ui/icons/LockOutlined";
 import { compose } from 'recompose';
 import { consumerFirebase } from '../../server';
+import { iniciarSesion } from '../../sesion/actions/sessionAction';
+import {StateContext } from '../../sesion/store';
+import {openMensajePantalla} from '../../sesion/actions/snackbarAction';
+
 const style = {
     paper: {
         marginTop: 9,
@@ -25,6 +29,7 @@ const style = {
 
 }
 class Login extends Component {
+    static contextType = StateContext;
     state = {
         firebase: null,
         usuario : {
@@ -80,6 +85,31 @@ class Login extends Component {
     //     }
         
     // }
+
+    /**
+     * Despues de crear el sesion reducer
+     */
+    login = async e =>{
+        e.preventDefault();
+        // clase 44
+        const  [{sesion}, dispatch] = this.context;
+        const {firebase, usuario} = this.state;
+        const {email, password} = usuario;
+
+        let callback = await iniciarSesion(dispatch, firebase,email, password);
+        console.log(callback);
+        if(callback.status){
+            this.props.history.push("/");
+        }else{
+            // clase 45
+            openMensajePantalla(dispatch, {
+                open : true,
+                mensaje: callback.mensaje.message
+            })
+        }
+        
+    }
+
     /**
      * 
      */
@@ -118,10 +148,10 @@ class Login extends Component {
                       fullWidth
                       variant="contained"
                       color="primary"
-                    // onClick={this.login}
+                        onClick={this.login}
                       style={style.submit}
                       >
-                          Enviar
+                          Iniciar
                       </Button>
 
                      {/* <Grid container>

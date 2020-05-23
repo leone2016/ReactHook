@@ -17,10 +17,16 @@ export const StateContext = createContext();
  * Usage:
  * @param {*} param0 
  */
-export const StateProvider = ({reducer, initialState, children}) => (
-    <StateContext.Provider value = {useReducer(reducer, initialState)}>
+export const StateProvider = ({ reducer, initialState, children }) => (
+    <StateContext.Provider value={useReducer(reducer, initialState)}>
         {children}
     </StateContext.Provider>
 )
 
+/**
+ * useStateValue extrae el contenido del statecontext que 
+ * esta guardando en la aplicacion.
+ * 
+ * En otras palabras dentro del useStateValue  ya se encuentra el estado incial de sesionReducer y ActionREeducer
+ */
 export const useStateValue = () => useContext(StateContext);

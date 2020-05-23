@@ -9,7 +9,8 @@ import Grid from '@material-ui/core/Grid'
 import RegistrarUsuario from './componentes/seguridad/RegistrarUsuario';
 import Login from "./componentes/seguridad/Login";
 import { FirebaseContext } from "./server";
-
+import { useStateValue } from "./sesion/store";
+import { Snackbar } from "@material-ui/core";
 
 
 function App(props) {
@@ -23,7 +24,10 @@ function App(props) {
   // el onjetivo que ahora se lo utiliza es como una bandera, para indicar si ya se puede cargar algo en específico
   // los hooks no tienen un tiempo de vida como las Clases
   const [autenticacionIniciada, setupFirebaseInicial] = React.useState(false);
-
+  // es la representacion del contextPrider { openSnackbar, session }
+  // los nombres que estan dentro de los conchetes, es lo que se definio
+  // en el mainReducer 
+  const [{ openSnackbar }, dispatch] = useStateValue();
 
 
   useEffect(() => {
@@ -34,6 +38,31 @@ function App(props) {
 
   // cuando no esta iniciada no imprime : caso contradio imprime
   return autenticacionIniciada !== false ? (
+    <React.Fragment>
+     {/* inicia snackbar */}
+     <Snackbar
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          open={openSnackbar ? openSnackbar.open : false}
+          autoHideDuration={3000}
+          ContentProps={{
+            "aria-describedby": "message-id"
+          }}
+          message={
+            <span id="message-id">
+              {openSnackbar ? openSnackbar.mensaje : ""}
+            </span>
+          }
+          onClose={() =>
+            dispatch({
+              type: "OPEN_SNACKBAR",
+              openMensaje: {
+                open: false,
+                mensaje: ""
+              }
+            })
+          }
+        ></Snackbar>
+         {/* fin snackbar */}
     <Router>
       <MuiThemeProvider theme={theme}>
         <AppNavBar />
@@ -47,6 +76,7 @@ function App(props) {
         </Grid>
       </MuiThemeProvider>
     </Router>
+    </React.Fragment>
   ) : null;
 }
 
