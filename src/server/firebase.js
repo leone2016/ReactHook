@@ -1,6 +1,8 @@
 import app from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth'
+import 'firebase/firestore'; // base de datos
+import 'firebase/auth'; // autenticacion
+import 'firebase/storage'; // maneja archivos
+
 const firebaseConfig = {
     apiKey: "AIzaSyA1UKZC0V5KU92YId2Wfc9nI0GUu70xyCA",
     authDomain: "inmobiliariapp-593.firebaseapp.com",
@@ -16,6 +18,7 @@ class FirebaseServer{
         app.initializeApp(firebaseConfig);
         this.db = app.firestore();
         this.auth = app.auth(); // this.auth puede tener cualquier nombre no es obligatorio este 
+        this.storage = app.storage();
       
     }
     estaIniciado() {
@@ -23,6 +26,17 @@ class FirebaseServer{
             this.auth.onAuthStateChanged(resolve)
         })
     } 
+    /**
+     * guarda un archivo
+     */
+    guardarDocumento = (nombreDocumento, documento) => this.storage.ref().child(nombreDocumento).put(documento);
+
+    devolverDocumento = (documentoUrl) => this.storage.ref().child(documentoUrl).getDownloadURL();
+
+    guardarDocumentos = (documentos) => this.storage.ref().guardarDocumentos(documentos);
+
+    eliminarDocumento = documento => this.storage.ref().child(documento).delete();
+
 }
 
 export default  FirebaseServer;

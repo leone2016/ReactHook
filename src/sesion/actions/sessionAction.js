@@ -11,7 +11,6 @@ export const iniciarSesion = (dispatch, firebase, email, password) => {
                     .doc(auth.user.uid)
                     .get()
                     .then(doc => {
-                        debugger;
                         const usuarioDB = doc.data();
                         // esto se utiliza en el context provider sesion
                         // esto es lo que se retorna al reducer

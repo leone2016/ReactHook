@@ -7,10 +7,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AppNavBar from "./componentes/layout/AppNavBar";
 import Grid from '@material-ui/core/Grid'
 import RegistrarUsuario from './componentes/seguridad/RegistrarUsuario';
+import PerfilUsuario from './componentes/seguridad/PerfilUsuario';
 import Login from "./componentes/seguridad/Login";
 import { FirebaseContext } from "./server";
 import { useStateValue } from "./sesion/store";
 import { Snackbar } from "@material-ui/core";
+import RutaAutenticada from "./componentes/seguridad/RutaAutenticada";
 
 
 function App(props) {
@@ -69,7 +71,9 @@ function App(props) {
         {/* segmento dinamico */}
         <Grid container>
           <Switch>
-            <Route path="/" exact component={ListaInmuebles}></Route>
+            {/* 0 */}
+            <RutaAutenticada exact path="/" autenticadoFirebase={firebase.auth.currentUser} component={ListaInmuebles}/>
+            <RutaAutenticada exact path="/auth/perfil" autenticadoFirebase={firebase.auth.currentUser} component={PerfilUsuario}/>
             <Route path="/auth/register" exact component={RegistrarUsuario}></Route>
             <Route path="/auth/login" exact component={Login} />
           </Switch>

@@ -14,6 +14,8 @@ import { StateContext } from "../../../sesion/store";
 import { salirSesion } from "../../../sesion/actions/sessionAction";
 import { MenuDerecha } from './menuDerecha';
 import fotoUsuarioTemp from "../../../logo.svg";
+import { withRouter, Link } from 'react-router-dom';
+import { MenuIzquierda } from './menuIzquierda';
 const styles = theme => ({
     sectionDesktop: {
         display: "none",
@@ -61,9 +63,8 @@ class BarSession extends Component {
     salirSesionApp = () => {
         const { firebase } = this.state;
         const [{ sesion }, dispatch] = this.context;
-        // llama a 
         salirSesion(dispatch, firebase).then(success => {
-            this.props.history.push("/auth/login");
+            this.props.history.push("/auth/login"); // es importante importar el router
         });
     };
     /**
@@ -92,7 +93,6 @@ class BarSession extends Component {
         const { classes } = this.props;
         const [{ sesion }, dispatch] = this.context;
         const { usuario } = sesion;
-        debugger;
         let textoUsuario = usuario.nombre + " " + usuario.apellido;
 
         return (
@@ -119,19 +119,46 @@ class BarSession extends Component {
                         />
                     </div>
                 </Drawer>
+                {/* fin barra latera derecha */}
+                {/*  barra latera Izquierda */}
+                <Drawer
+                    open={this.state.left}
+                    onClose={this.toggleDrawer("left", false)}
+                    anchor="left"
+                >
+                    <div
+                        role="button"
+                        onClick={this.toggleDrawer("left", false)}
+                        onKeyDown={this.toggleDrawer("left", false)}
+                    >
+                        {/* usuario viene desde contextProvider */}
+                        <MenuIzquierda
+                            classes={classes}
+                        />
+                    </div>
+                </Drawer>
+                {/* fin barra latera Izquierda */}
 
                 <Toolbar>
-                    <IconButton color={'inherit'}>
+                    <IconButton color={'inherit'} onClick={this.toggleDrawer('left', true)}>
                         <i className="material-icons">menu</i>
                     </IconButton>
 
                     <Typography variant="h6">
-                        ---- ----- 
+                        Leo Home
                     </Typography>
                     <div className={classes.grow}></div>
                     <div className={classes.sectionDesktop}>
+                        {/* clase 62 */}
                         {/* inherit: heredado toma los colores del template */}
-                        <Button color="inherit">Login</Button>
+                        <IconButton color="inherit" component={Link} to="">
+                            <i className="material-icons">mail_outline</i>
+                        </IconButton>
+                        <Button color="inherit" onClick={this.salirSesionApp}>Salir</Button>
+                        <Button color="inherit">{textoUsuario}</Button>
+                        <Avatar
+                            src={fotoUsuarioTemp}
+                        />
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
@@ -148,6 +175,7 @@ class BarSession extends Component {
 }
 
 export default compose(
+    withRouter,
     consumerFirebase,
     withStyles(styles)
 )(BarSession);

@@ -63,6 +63,10 @@ en este curso se va usar los hooks con el realContext para manejar la sesión de
 
 ![Estructura del proyecto](https://raw.githubusercontent.com/leone2016/ReactHook/master/Screenshot_1.png)
 
+* npm install --save react-images-upload
+* npm install uuid
+
 ## Documentación
 
-[Drower - lateral Menú ](https://material-ui.com/es/components/drawers/)s
+[Drower - lateral Menú ](https://material-ui.com/es/components/drawers/)
+[React Image Uploader Componente ](https://www.npmjs.com/package/react-images-upload)

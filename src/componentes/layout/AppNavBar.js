@@ -49,7 +49,6 @@ class AppNavBar extends Component {
        * se haya cargado (se ejecuta una sola vez)
        */
       componentDidMount() {
-        debugger;
         const { firebase } = this.state; //local state
         const [{ sesion }, dispatch] = this.context; //global state
         
